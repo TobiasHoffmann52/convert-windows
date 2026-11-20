@@ -1,0 +1,11 @@
+Pillow>=10.3
+pillow-heif>=0.16
+pypdfium2>=4.30
+send2trash>=1.8
+markdown-it-py>=3.0
+mdit-py-plugins>=0.4
+mammoth>=1.8
+sv-ttk>=2.6
+tkinterdnd2>=0.3
+# optional: RAW photo support (CR2, NEF, ARW, DNG…)
+# rawpy

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "convert-win"
+version = "0.3.0"
+description = "Right-click file converter for Windows (port of the macOS Convert app)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Tobias Hoffmann" }]
+requires-python = ">=3.10"
+dependencies = [
+  "Pillow>=10.3", "pillow-heif>=0.16", "pypdfium2>=4.30", "send2trash>=1.8",
+  "markdown-it-py>=3.0", "mdit-py-plugins>=0.4", "mammoth>=1.8", "sv-ttk>=2.6", "tkinterdnd2>=0.3",
+]
+
+[project.optional-dependencies]
+raw = ["rawpy"]
+dev = ["pytest", "pyinstaller"]
+
+[project.gui-scripts]
+convert-win = "convert_win.app:main"
+
+[tool.setuptools]
+packages = ["convert_win"]
+
+[tool.setuptools.package-data]
+convert_win = ["assets/*"]
+
+[project.urls]
+"Original macOS app" = "https://github.com/newtonstudios/convert"

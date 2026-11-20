@@ -1,0 +1,34 @@
+name: Build Windows release
+
+on:
+  workflow_dispatch:          # Actions tab > Build Windows release > Run workflow (builds, no release)
+  push:
+    tags: ["v*"]              # git tag v0.3.0 && git push origin v0.3.0  -> builds and publishes a Release
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run tests
+        run: |
+          pip install -r requirements.txt pytest
+          python -m pytest tests -q
+      - name: Build exe (includes a self-test of the built exe)
+        run: ./build.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Convert-Windows
+          path: Convert-Windows.zip
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Convert-Windows.zip
+          generate_release_notes: true
