@@ -71,28 +71,6 @@ Windows 11 with a 4K display at 150% scaling and an NVIDIA RTX 5080:
 Not yet verified on real hardware: Intel and AMD GPU encoders, RAW photos, and Word / ODT / RTF / DOC conversions
 (which need LibreOffice or Pandoc). If you try those, please [open an issue](../../issues) either way.
 
-## Build from source
-
-You need Python 3.10+.
-
-```powershell
-pip install -r requirements.txt pytest
-python -m convert_win                      # open the window
-python -m convert_win a.mp4 b.mp4          # as if launched from the right-click menu
-python -m convert_win --cli mp3 song.wav   # no window, default settings
-python -m pytest tests
-.\build.ps1                                # builds Convert-Windows.zip (PyInstaller)
-.\install.ps1 -WithFfmpeg                  # or install from source for the current user
-.\uninstall.ps1
-```
-
-**Publishing a release:** push a tag (`git tag v0.3.0 && git push origin v0.3.0`). GitHub Actions runs the tests,
-builds the exe, checks that the built exe starts and converts a few files, and attaches `Convert-Windows.zip` to a Release.
-
-How the Mac pieces map to Windows: ImageIO → Pillow + pillow-heif · PDFKit → pdfium · `textutil` → LibreOffice / Pandoc /
-mammoth, with Edge printing HTML to PDF · VideoToolbox → NVENC / Quick Sync / AMF · Automator Quick Action → registry
-entries under `HKCU` · SwiftUI → tkinter with the Sun Valley theme.
-
 ## Credits and license
 
 - **Original macOS app:** [eliasdesena](https://github.com/newtonstudios/convert), MIT licensed.
